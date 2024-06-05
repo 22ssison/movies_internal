@@ -1,3 +1,5 @@
+#This program is just for drafting potential functions we can use for our main program found in main.py
+
 # Import sqlite3 to connect to the library
 import sqlite3
 
@@ -8,18 +10,6 @@ conn = sqlite3.connect("./movies_internal.db")
 cursor = conn.cursor()
 
 #start creating define statements that execute different querries
-
-
-# To show the user the list of different movies that is available.
-def show_all_available_movies():
-   cursor.execute("SELECT id, title FROM movies;") #WHERE id > {11}; make pages have only 10 movies on each page. ask the user if they want to continue or not if they found a movie that they want to watch. 
-   #save the result to a variable.
-   movies = cursor.fetchall()
-   #list of tuples
-   for movie in movies:
-      print()
-      print(f"{movie[0]}: {movie[1]}")
-show_all_available_movies()
 
 def get_movie_by_genre():
    user_genre = input("Which genre would you like to search for?\n> ")
@@ -149,6 +139,4 @@ def movies_highest_to_lowest_rating():
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
-# movies_highest_to_lowest_rating()
-
-
+movies_highest_to_lowest_rating()
