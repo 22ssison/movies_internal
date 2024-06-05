@@ -7,10 +7,11 @@ conn = sqlite3.connect("./movies_internal.db")
 # Create a cursor for python to 'type' commands into
 cursor = conn.cursor()
 
+
+
 #start creating define statements that execute different querries
 
-
-# To show the user the list of different movies that is available.
+# this block shows all the available movies in the database
 def show_all_available_movies():
    cursor.execute("SELECT id, title FROM movies;") #WHERE id > {11}; make pages have only 10 movies on each page. ask the user if they want to continue or not if they found a movie that they want to watch. 
    #save the result to a variable.
@@ -19,20 +20,48 @@ def show_all_available_movies():
    for movie in movies:
       print()
       print(f"{movie[0]}: {movie[1]}")
-show_all_available_movies()
 
+#narrow down the different movies according to the user's preferance
 def get_movie_by_genre():
-   user_genre = input("Which genre would you like to search for?\n> ")
-   cursor.execute("SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year, id FROM movies WHERE genre = ?", (user_genre, ))
+   #I put all the available genres inside a list to make this program more robust and user friendly
+   genre_list = ["Romance", "Musical", "Action", "Science Fiction", "Thriller", "Fantasy", "Horror" ]
+   #print out all available genres so the user has something to choose from and showwhat is available.
+   for index, genre in enumerate(genre_list):
+      print(f"{index + 1}) {genre}\n")
+
+   available_genres = ["1", "2", "3", "4", "5", "6", "7"]
+   #ask the user
+   user_genre = input("Which genre would you like to search for? Enter the number of the genre (1-7):\n> ").strip()    #to make program more robust incase of a typo
+   while user_genre not in available_genres:
+      print("Sorry, I don't recognise that. Please enter numbers that are inside the range of 1 and 7.")
+      print()
+      user_title = input("Which movie would you like to search for? (1-7):\n> ").strip()
+
+   if user_title == "1":                      
+      option = "Romance"
+   elif user_title == "2":
+      option = "Musical"
+   elif user_title == "3":
+      option = "Action"
+   elif user_title == "4":
+      option = "Science Fiction"
+   elif user_title == "5":
+      option = "Thriller"
+   elif user_title == "6":
+      option = "Fantasy"
+   elif user_title == "7":
+      option = "Horror"
+   cursor.execute("SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year, id FROM movies WHERE genre = ?", (option, ))
    # this query does not convert the user input into a string but rather an sql query
    movie_info = cursor.fetchall()
    print()
-   print()
+   print()            #spaces to make the output look neater
    print()
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
 
+# option for the user to search for something specific. 
 def get_movie_info_by_title():
    user_title = input("Which movie would you like to search for? Enter the number of the movie (1-30):\n> ").strip()
    #to make sure that the user has inputted the correct expected input, we will use a while loop to ask them if they entered an unexpected input. 
@@ -104,16 +133,12 @@ def get_movie_info_by_title():
       option = "Clueless"
    print()
    print()
-   cursor.execute("SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE title = ?", (option, ))
+   cursor.execute("SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE title = ?", (option, )) #fixed to prevent sql interjections
    movie_info = cursor.fetchall()
    for index, movie in enumerate(movie_info):
       print(f"\"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
  
 
-# get_movie_info_by_title()
-
-# Delete these two functions and save it for next trial - create a more simple version
-# Consider user's input (preferance?)
 def movies_with_duration_less_than_2_hours():
    cursor.execute(f"SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE duration < {120} ")
    #we can potentially feed it a bunch of data types and store it anyway - input validation 
@@ -126,8 +151,6 @@ def movies_with_duration_less_than_2_hours():
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
 
-# movies_with_duration_less_than_2_hours()
-
 def movies_with_duration_2_hours_or_more():
    cursor.execute(f"SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE duration >= {120}")
    movie_info = cursor.fetchall()
@@ -136,8 +159,6 @@ def movies_with_duration_2_hours_or_more():
    print()
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
-
-# movies_with_duration_2_hours_or_more()
 
 
 def movies_highest_to_lowest_rating():
@@ -149,6 +170,15 @@ def movies_highest_to_lowest_rating():
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
+
+
+
+#call funcitons
+# show_all_available_movies()
+get_movie_by_genre()
+# get_movie_info_by_title()
+# movies_with_duration_less_than_2_hours()
+# movies_with_duration_2_hours_or_more()
 # movies_highest_to_lowest_rating()
 
 
