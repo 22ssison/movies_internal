@@ -13,6 +13,7 @@ cursor = conn.cursor()
 
 def get_movie_by_genre():
    user_genre = input("Which genre would you like to search for?\n> ")
+   available_genres = ["romance", "comedy", "romance"]
    cursor.execute("SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year, id FROM movies WHERE genre = ?", (user_genre, ))
    # this query does not convert the user input into a string but rather an sql query
    movie_info = cursor.fetchall()
@@ -137,6 +138,6 @@ def movies_highest_to_lowest_rating():
    print()
    print()
    for index, movie in enumerate(movie_info):
-      print(f"{index +1}) \"{movie_info[index][0]}\"\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
+      print(f"{index +1}) \"{movie_info[index][0]}\" \n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
 movies_highest_to_lowest_rating()

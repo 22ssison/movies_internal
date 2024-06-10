@@ -33,29 +33,35 @@ def get_movie_by_genre():
    #ask the user
    user_genre = input("Which genre would you like to search for? Enter the number of the genre (1-7):\n> ").strip()    #to make program more robust incase of a typo
    while user_genre not in available_genres:
+      print()
       print("Sorry, I don't recognise that. Please enter numbers that are inside the range of 1 and 7.")
       print()
-      user_title = input("Which movie would you like to search for? (1-7):\n> ").strip()
+      user_genre = input("Which movie would you like to search for? (1-7):\n> ").strip()
 
-   if user_title == "1":                      
+   if user_genre == "1":                      
       option = "Romance"
-   elif user_title == "2":
+   elif user_genre == "2":
       option = "Musical"
-   elif user_title == "3":
+   elif user_genre == "3":
       option = "Action"
-   elif user_title == "4":
+   elif user_genre == "4":
       option = "Science Fiction"
-   elif user_title == "5":
+   elif user_genre == "5":
       option = "Thriller"
-   elif user_title == "6":
+   elif user_genre == "6":
       option = "Fantasy"
-   elif user_title == "7":
+   elif user_genre == "7":
       option = "Horror"
    cursor.execute("SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year, id FROM movies WHERE genre = ?", (option, ))
-   # this query does not convert the user input into a string but rather an sql query
+   # this query is in this set up because it is quite tentative to get the user to type in the movie title as they would have to spell the movie title very accurately for this query to work.
    movie_info = cursor.fetchall()
    print()
    print()            #spaces to make the output look neater
+   print()
+   print(f"You selected the genre \"{option}\"")
+   print()
+   print(f"Here are the following movies for this genre...")   
+   print()
    print()
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
@@ -147,6 +153,9 @@ def movies_with_duration_less_than_2_hours():
    print()
    print()
    print()
+   print("The following movies run for less than 2 hours")
+   print()
+   print()
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
@@ -155,6 +164,8 @@ def movies_with_duration_2_hours_or_more():
    cursor.execute(f"SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE duration >= {120}")
    movie_info = cursor.fetchall()
    print()
+   print()
+   print("The following movies run for 2 or more hours...")
    print()
    print()
    for index, movie in enumerate(movie_info):
@@ -166,12 +177,14 @@ def movies_highest_to_lowest_rating():
    movie_info = cursor.fetchall()
    print()
    print()
+   print("Here are all our movies arranged by its rating from highest to lowest.")
+   print()
    print()
    for index, movie in enumerate(movie_info):
       print(f"{index +1}) \"{movie_info[index][0]}\"\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
 
-
+print("This program ")
 
 #call funcitons
 # show_all_available_movies()
@@ -181,4 +194,4 @@ get_movie_by_genre()
 # movies_with_duration_2_hours_or_more()
 # movies_highest_to_lowest_rating()
 
-
+# 1, 2, 44, 46, 55
