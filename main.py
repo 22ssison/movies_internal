@@ -3,7 +3,7 @@ import sqlite3
 
 #for delays in the code
 import time
-
+ 
 # Connect to database file and save connection to a variable
 conn = sqlite3.connect("./movies_internal.db")
 
@@ -208,27 +208,6 @@ def exit_program():
    print()
    print("I guess you already have a movie in mind.\nEnjoy your movie!")
 
-def start_of_program():
-   print("This program executes a range of data from the movies showing in the cinema.")
-   print()
-   accepted_responses = ["y","n","yes","no"]
-   run_program_or_exit = input("Would you like to use this program?(y/n):\n> ")
-   while run_program_or_exit not in accepted_responses:
-      print()
-      print("Sorry, I don't recognise that. Enter either yes or no.")
-      print()
-      run_program_or_exit = input("Would you like to use this program?(y/n):\n> ")
-   if run_program_or_exit == "no" or run_program_or_exit == "n":
-      print()
-      print("It seems like you already have a film in mind. Enjoy the movie!")
-   elif run_program_or_exit == "yes" or run_program_or_exit == "y":
-      print()
-      print("great!")
-      show_all_available_movies()
-      #Gives the user options to further narrow down their search (to get movie info based on their preferance)
-      print()
-      print("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----")
-
 def narrow_down_user_search():
    print("Would you like to:")
    print()
@@ -252,5 +231,26 @@ def narrow_down_user_search():
       print()
       choice = input("1. Search movie information based on title\n2. Search movie information based on genre\n3. Get movie info that run for less than 2 hours\n4. Get movie info that run for 2 hours or more\n5. Get movie info arranged by the audience rating (highest to lowest)\n6. Exit program\n> ")
 
+def start_of_program():
+   print("This program executes a range of data from the movies showing in the cinema.")
+   print()
+   accepted_responses = ["y","n","yes","no"]
+   run_program_or_exit = input("Would you like to use this program?(y/n):\n> ")
+   while run_program_or_exit not in accepted_responses:
+      print()
+      print("Sorry, I don't recognise that. Enter either yes or no.")
+      print()
+      run_program_or_exit = input("Would you like to use this program?(y/n):\n> ")
+   if run_program_or_exit == "no" or run_program_or_exit == "n":
+      print()
+      print("It seems like you already have a film in mind. Enjoy the movie!")
+   elif run_program_or_exit == "yes" or run_program_or_exit == "y":
+      print()
+      print("great!")
+      show_all_available_movies()
+      #Gives the user options to further narrow down their search (to get movie info based on their preferance)
+      print()
+      print("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----")
+      narrow_down_user_search()
+
 start_of_program()
-narrow_down_user_search()
