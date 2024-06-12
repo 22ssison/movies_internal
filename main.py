@@ -1,3 +1,5 @@
+# Reading Cinemas Program - Movies Internal
+
 # Import sqlite3 to connect to the library
 import sqlite3
 
@@ -10,9 +12,16 @@ conn = sqlite3.connect("./movies_internal.db")
 # Create a cursor for python to 'type' commands into
 cursor = conn.cursor()
 
+# Cool menu graphic - in courtesy of Mincetagram 
+menu_graphic = R"""
+_ __ ___   ___ _ __  _   _ 
+| '_ ` _ \ / _ \ '_ \| | | |
+| | | | | |  __/ | | | |_| |
+|_| |_| |_|\___|_| |_|\__,_|"""
+
 #start creating define statements that execute different querries
 
-# this block shows all the available movies in the database
+# Lists all the available movies in the cinema.
 def show_all_available_movies():
    cursor.execute("SELECT id, title FROM movies;") 
    #save the result to a variable.
@@ -22,23 +31,18 @@ def show_all_available_movies():
    print()
    print("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----")
    print("Bellow are the available movies showing in our cinema...")
+   print("Note: \"Must watch\" movies are starred.")
    for movie in movies:
-      print()
-      print(f"{movie[0]}: {movie[1]}")
-
-# def give_all_info_for_all_movies():
-#    cursor.execute("SELECT * FROM movies;") 
-#    movies = cursor.fetchall()
-#    #list of tuples
-#    print()
-#    print("Here are the available movies showing in our cinema...")
-#    print()
-#    print()
-#    for movie in movies:
-#       print()
-#       print(f"{movie[0]}: {movie[1]}")
+      if movie[1] == "Titanic" or movie[1] == "Jurassic World" or movie[1] == "Avatar" or movie[1] == "Mamma Mia" or movie[1] == "The Conjuring" or movie[1] == "Ratatouille" or movie[1] == "Jaws" or movie[1] == "Toy Story" or movie[1] == "The Notebook" or movie[1] == "Twilight":
+         print()
+         print(f"{movie[0]}: {movie[1]} ⭐️")
+      else:
+         print()
+         print(f"{movie[0]}: {movie[1]}")
 
 #narrow down the different movies according to the user's preferance
+
+# search by genre
 def get_movie_by_genre():
    #I put all the available genres inside a list to make this program more robust and user friendly
    genre_list = ["Romance", "Musical", "Action", "Science Fiction", "Thriller", "Fantasy", "Horror" ]
@@ -94,7 +98,7 @@ def get_movie_info_by_title():
    while user_title not in available_movies:
       print("Sorry, I don't recognise that. Please enter numbers that are inside the range of 1 and 30.")
       print()
-      user_title = input("Which movie would you like to search for? (1-30):\n> ")
+      user_title = input("Which movie would you like to search for? (1-30):\n> ").strip()
 
    if user_title == "1":                        # instead of doing all of this, rather get the sql querry for 
       option = "Titanic"
@@ -165,8 +169,6 @@ def get_movie_info_by_title():
  
 def movies_with_duration_less_than_2_hours():
    cursor.execute(f"SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE duration < {120} ")
-   #we can potentially feed it a bunch of data types and store it anyway - input validation 
-   #fix this to get the user to input a duration instead. 
    movie_info = cursor.fetchall()
    print()
    print()
@@ -208,8 +210,8 @@ def exit_program():
    print()
    print("I guess you already have a movie in mind.\nEnjoy your movie!")
 
-def narrow_down_user_search():
-   print("Would you like to:")
+def display_menu():
+   print(menu_graphic)
    print()
    accepted_responses = ["1", "2", "3", "4", "5", "6"]
    choice = input("1. Search movie information based on title\n\n2. Search movie information based on genre\n\n3. Get movie info that run for less than 2 hours\n\n4. Get movie info that run for 2 hours or more\n\n5. Arranged movies by the audience rating (highest to lowest)\n\n6. Exit program\n> ")
@@ -231,7 +233,7 @@ def narrow_down_user_search():
       print()
       choice = input("1. Search movie information based on title\n2. Search movie information based on genre\n3. Get movie info that run for less than 2 hours\n4. Get movie info that run for 2 hours or more\n5. Get movie info arranged by the audience rating (highest to lowest)\n6. Exit program\n> ")
 
-def start_of_program():
+def run_program():
    print("This program executes a range of data from the movies showing in the cinema.")
    print()
    accepted_responses = ["y","n","yes","no"]
@@ -251,6 +253,20 @@ def start_of_program():
       #Gives the user options to further narrow down their search (to get movie info based on their preferance)
       print()
       print("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----")
-      narrow_down_user_search()
+      display_menu()
 
-start_of_program()
+def revert_or_not():
+   accepted_responses = ["y","n","yes","no"]
+   user_choice = input("Are you satisfied with your choice? (y/n)")  
+   while user_choice not in accepted_responses:
+      print()
+      print("Sorry, I don't recognise that. Enter either yes or no.")
+      print()
+      run_program_or_exit = input("Are you satisfied with your choice? (y/n)")
+   if user_choice == "yes" or user_choice == "y":
+      run_program()
+   elif user_choice == "no" or user_choice == "n":
+      exit_program()
+
+
+run_program()
