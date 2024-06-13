@@ -137,3 +137,55 @@ def movies_highest_to_lowest_rating():
       print(f"{index +1}) \"{movie_info[index][0]}\" \n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nShowing in cinema {movie_info[index][7]}\n\n---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n\n")
 
 movies_highest_to_lowest_rating()
+
+
+
+
+
+
+
+
+
+def reverting_user_menu():
+
+   accepted_responses = ["a", "b", "c", "d", "e", "f"]
+   display_menu_graphic() #make it more appealing
+   display_menu()
+   if menu_choice == "a":
+      get_movie_info_by_title()
+   elif menu_choice == "b":
+      get_movie_by_genre()
+   elif menu_choice == "c":
+      movies_with_duration_less_than_2_hours()
+   elif menu_choice == "d":
+      movies_with_duration_2_hours_or_more()
+   elif menu_choice == "e":
+      movies_highest_to_lowest_rating()
+   elif menu_choice == "f":
+      exit_program()
+   else:
+      print()
+      time.sleep(.5)
+      print(f"{red}Invalid option.{reset}")
+      time.sleep(1)
+      print(f"Please select one of the options (a, b, c, d, e, f)")
+      print()
+      print(f"{purple}a.{reset} Search movie information based on title")
+      print()
+      time.sleep(.5)
+      print(f"{purple}b.{reset} Search movie information based on genre")
+      print()
+      time.sleep(.25)
+      print(f"{purple}c.{reset} Get movie info that run for less than 2 hours")
+      print()
+      time.sleep(.25)
+      print(f"{purple}d.{reset} Get movie info that run for 2 hours or more")
+      print()
+      time.sleep(.25)
+      print(f"{purple}e.{reset} Arranged movies by the audience rating (highest to lowest)")
+      print()
+      time.sleep(.25)
+      print(f"{purple}f.{reset} {yellow}Exit program{reset}")
+      print()
+      time.sleep(.25)
+      menu_choice = input(f"{blue}> {reset}")
