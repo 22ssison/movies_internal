@@ -40,7 +40,7 @@ def show_all_available_movies():
    time.sleep(.5)
    print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
    time.sleep(1)
-   print("Bellow are the available movies showing in our cinema...")
+   print("Below are the available movies showing in our cinema...")
    time.sleep(1.5)
    print(f"{red}Note: \"Must watch\" movies are starred.{reset}")
    time.sleep(1.5)
@@ -60,21 +60,36 @@ def show_all_available_movies():
 def get_movie_by_genre():
    #I put all the available genres inside a list to make this program more robust and user friendly
    genre_list = ["Romance", "Musical", "Action", "Science Fiction", "Thriller", "Fantasy", "Horror" ]
-   #print out all available genres so the user has something to choose from and showwhat is available.
    print()
+   time.sleep(.5)
    print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   time.sleep(1.5)
+   print("Available Genres:")
+   print()
+   #print out all available genres so the user has something to choose from and showwhat is available.
    for index, genre in enumerate(genre_list):
+      time.sleep(.5)
       print(f"{index + 1}) {genre}\n")
 
    available_genres = ["1", "2", "3", "4", "5", "6", "7"]
-   #ask the user
+   #ask the user which genre
+   time.sleep(1)
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   time.sleep(.5)
    user_genre = input(f"Which genre would you like to search for? Enter the number of the genre (1-7):\n{blue}> {reset}").strip()    #to make program more robust incase of a typo
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+  
+   # for unexpected inputs
    while user_genre not in available_genres:
       print()
-      print("Sorry, I don't recognise that. Please enter numbers that are inside the range of 1 and 7.")
+      time.sleep(.5)
+      print(f"{red}Sorry, I don't recognise that.{reset}")
+      time.sleep(1)
+      print("Please enter numbers that are inside the range of 1 and 7.")
       print()
+      time.sleep(1)
       user_genre = input(f"Which movie would you like to search for? (1-7):\n{blue}> {reset}").strip()
-
+   #conditions
    if user_genre == "1":                      
       option = "Romance"
    elif user_genre == "2":
@@ -94,14 +109,47 @@ def get_movie_by_genre():
    movie_info = cursor.fetchall()
    print()            #spaces to make the output look neater
    print()
-   print(f"You selected the genre \"{option}\"")
+   print(f"You selected the genre {red}\"{option}\"{reset}")
    print()
    print(f"Here are the following movies for this genre...")   
    print()
-   print()
    for index, movie in enumerate(movie_info):
-      print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}\n\n")
-
+      time.sleep(.25)
+      print(f"{index +1}) {red}\"{movie_info[index][0]}\"{reset}")
+      print()
+      time.sleep(.25)
+      print(f"Blurb: {movie_info[index][1]}")
+      print()
+      time.sleep(.25)
+      print(f"{purple}Genre:{reset} {movie_info[index][2]}")
+      print()
+      time.sleep(.25)
+      print(f"Starring: {movie_info[index][3]}")
+      print()
+      time.sleep(.25)
+      print(f"Duration: {movie_info[index][4]}minutes")
+      print()
+      time.sleep(.25)
+      print(f"Release Year: {movie_info[index][9]}")
+      print()
+      time.sleep(.25)
+      print(f"Directed by: {movie_info[index][5]}")
+      print()
+      time.sleep(.25)
+      print(f"Budget: ${movie_info[index][6]}milion (USD)")
+      print()
+      time.sleep(.25)
+      print(f"Audience Rating: {movie_info[index][8]}/5 stars")
+      print()
+      time.sleep(.25)
+      print(f"Showing in cinema {movie_info[index][7]}")
+      print()
+      time.sleep(.25)
+      print(f"Showing in cinema {movie_info[index][7]}")
+      print()
+      time.sleep(.25)
+      print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}\n\n")
+ 
 
 # option for the user to search for something specific. 
 def get_movie_info_by_title():
@@ -112,8 +160,12 @@ def get_movie_info_by_title():
    #to make sure that the user has inputted the correct expected input, we will use a while loop to ask them if they entered an unexpected input. 
    available_movies = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"]
    while user_title not in available_movies:
-      print("Sorry, I don't recognise that. Please enter numbers that are inside the range of 1 and 30.")
+      time.sleep(.5)
+      print(f"{red}Sorry, I don't recognise that.{reset}")
+      time.sleep(1)
+      print("Please enter numbers that are inside the range of 1 and 30.")
       print()
+      time.sleep(1)
       user_title = input(f"Which movie would you like to search for? (1-30):\n{blue}> {reset}").strip()
    print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
    time.sleep(1)
@@ -184,31 +236,31 @@ def get_movie_info_by_title():
    for index, movie in enumerate(movie_info):
       print(f"{red}\"{movie_info[index][0]}\"{reset}")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Blurb: {movie_info[index][1]}")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Genre: {movie_info[index][2]}")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Starring: {movie_info[index][3]}")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Duration: {movie_info[index][4]}minutes")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Release Year: {movie_info[index][9]}")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Directed by: {movie_info[index][5]}")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Budget: ${movie_info[index][6]}milion (USD)")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Audience Rating: {movie_info[index][8]}/5 stars")
       print()
-      time.sleep(.3)
+      time.sleep(.5)
       print(f"Showing in cinema {movie_info[index][7]}")
       print()
       time.sleep(.5)
@@ -218,51 +270,147 @@ def movies_with_duration_less_than_2_hours():
    cursor.execute(f"SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE duration < {120} ")
    movie_info = cursor.fetchall()
    print()
-   print()
+   time.sleep(.5)
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   time.sleep(.5)
    print("I guess you're not a fan of long movies. Not a problem!")
+   time.sleep(1)
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   time.sleep(.5)
+   print(f"The following movies run for {red}less than 2 hours...{reset}")
+   time.sleep(1.1)
    print()
-   print("The following movies run for less than 2 hours...")
    print()
    for index, movie in enumerate(movie_info):
-      print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}\n\n")
-
+      print(f"{index +1}) {red}\"{movie_info[index][0]}\"{reset}")
+      print()
+      time.sleep(.25)
+      print(f"Blurb: {movie_info[index][1]}")
+      print()
+      time.sleep(.25)
+      print(f"Genre: {movie_info[index][2]}")
+      print()
+      time.sleep(.25)
+      print(f"Starring: {movie_info[index][3]}")
+      print()
+      time.sleep(.25)
+      print(f"{purple}Duration:{reset} {movie_info[index][4]}minutes")
+      print()
+      time.sleep(.25)
+      print(f"Release Year: {movie_info[index][9]}")
+      print()
+      time.sleep(.25)
+      print(f"Directed by: {movie_info[index][5]}")
+      print()
+      time.sleep(.25)
+      print(f"Budget: ${movie_info[index][6]}milion (USD)")
+      print()
+      time.sleep(.25)
+      print(f"Audience Rating: {movie_info[index][8]}/5 stars")
+      print()
+      time.sleep(.25)
+      print(f"Showing in cinema {movie_info[index][7]}")
+      print()
+      time.sleep(.25)
+      print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}\n\n")
+ 
 
 def movies_with_duration_2_hours_or_more():
    cursor.execute(f"SELECT title, blurb, genre, actor, duration, director, budget, cinema, rating, year FROM movies WHERE duration >= {120}")
    movie_info = cursor.fetchall()
    print()
-   print()
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
    print("Great choice, Long movies are the best!")
-   print()
-   print("The following movies run for 2 or more hours...")
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   print(f"The following movies run for {red}2 or more hours...{reset}")
    print()
    print()
    for index, movie in enumerate(movie_info):
-      print(f"{index +1}) \"{movie_info[index][0]}\"\n\nBlurb: {movie_info[index][1]}\n\n\nGenre: {movie_info[index][2]}\n\nStarring: {movie_info[index][3]}\n\nDuration: {movie_info[index][4]}minutes\n\nRelease Year: {movie_info[index][9]}\n\nDirected by: {movie_info[index][5]}\n\nBudget: ${movie_info[index][6]}milion (USD)\n\nAudience Rating: {movie_info[index][8]}/5 stars\n\nShowing in cinema {movie_info[index][7]}\n\n---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}\n\n")
-
+      print(f"{index +1}) {red}\"{movie_info[index][0]}\"{reset}")
+      print()
+      time.sleep(.25)
+      print(f"Blurb: {movie_info[index][1]}")
+      print()
+      time.sleep(.25)
+      print(f"Genre: {movie_info[index][2]}")
+      print()
+      time.sleep(.25)
+      print(f"Starring: {movie_info[index][3]}")
+      print()
+      time.sleep(.25)
+      print(f"{purple}Duration:{reset} {movie_info[index][4]}minutes")
+      print()
+      time.sleep(.25)
+      print(f"Release Year: {movie_info[index][9]}")
+      print()
+      time.sleep(.25)
+      print(f"Directed by: {movie_info[index][5]}")
+      print()
+      time.sleep(.25)
+      print(f"Budget: ${movie_info[index][6]}milion (USD)")
+      print()
+      time.sleep(.25)
+      print(f"Audience Rating: {movie_info[index][8]}/5 stars")
+      print()
+      time.sleep(.25)
+      print(f"Showing in cinema {movie_info[index][7]}")
+      print()
+      time.sleep(.25)
+      print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}\n\n")
+ 
 
 def movies_highest_to_lowest_rating():
    cursor.execute(f"SELECT title, rating FROM movies ORDER BY rating DESC;")
    movie_info = cursor.fetchall()
    print()
-   print()
+   time.sleep(.5)
    print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   time.sleep(.5)
    print("Here are all our movies arranged by its audience rating from highest to lowest...")
+   time.sleep(1.25)
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   time.sleep(.5)
    print()
    for index, movie in enumerate(movie_info):
-      print(f"{index +1}) \"{movie_info[index][0]}\" - {movie_info[index][1]}/5 stars")
+      time.sleep(.5)
+      print(f"{index +1}) \"{movie_info[index][0]}\" - {purple}{movie_info[index][1]}/5 stars{reset}")
       print()
    print()
+   time.sleep(.5)
    print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
    print()
 
 def exit_program():
    print()
+   print(f"---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset} ---- {blue}----{reset}")
+   print()
+   time.sleep(.5)
    print("I guess you already have a movie in mind.")
    print()
    time.sleep(1)
    print(f"{yellow}Enjoy your movie!{reset}")
 
+def simply_a_visual_of_menu():
+   print(red + menu_graphic + reset) #make it more appealing
+   #display options
+   print()
+   print(f"{purple}a.{reset} Search movie information based on title")
+   print()
+   time.sleep(.5)
+   print(f"{purple}b.{reset} Search movie information based on genre")
+   print()
+   time.sleep(.25)
+   print(f"{purple}c.{reset} Get movie info that run for less than 2 hours")
+   print()
+   time.sleep(.25)
+   print(f"{purple}d.{reset} Get movie info that run for 2 hours or more")
+   print()
+   time.sleep(.25)
+   print(f"{purple}e.{reset} Arranged movies by the audience rating (highest to lowest)")
+   print()
+   time.sleep(.25)
+   print(f"{purple}f.{reset} {yellow}Exit program{reset}")
+   print()
    
 def reverting_user_menu():
    accepted_responses = ["a", "b", "c", "d", "e", "f"]
@@ -295,14 +443,19 @@ def reverting_user_menu():
    #conditions
       if menu_choice == "a":
          get_movie_info_by_title()
+         simply_a_visual_of_menu()
       elif menu_choice == "b":
          get_movie_by_genre()
+         simply_a_visual_of_menu()
       elif menu_choice == "c":
          movies_with_duration_less_than_2_hours()
+         simply_a_visual_of_menu()
       elif menu_choice == "d":
          movies_with_duration_2_hours_or_more()
+         simply_a_visual_of_menu()
       elif menu_choice == "e":
          movies_highest_to_lowest_rating()
+         simply_a_visual_of_menu()
       elif menu_choice == "f":
          exit_program()
          break
@@ -311,22 +464,24 @@ def reverting_user_menu():
          time.sleep(.25)
          print(f"{red}Invalid option.{reset}")
          print()
-         time.sleep(1)
+         time.sleep(.25)
          print(f"Please select one of the options (a, b, c, d, e, f)")
-
 
 
 
 def run_program():
    print()
-   print(f"{blue}This program executes a range of data from the movies showing in the cinema.{reset}")
+   print(f"{blue}This program is a tool to help you choose which movie to watch by providing basic information about the movies showing in Reading Cinemas, Queenstown.{reset}")
    print()
    accepted_responses = ["y","n","yes","no"]
    time.sleep(1.5)
    run_program_or_exit = input(f"Would you like to use this program?(y/n):\n{blue}> {reset}")
    while run_program_or_exit not in accepted_responses:
       print()
-      print("Sorry, I don't recognise that. Enter either yes or no.")
+      time.sleep(.5)
+      print(f"{red}Sorry, I don't recognise that.{reset}")
+      time.sleep(1)
+      print("Enter either yes or no.")
       print()
       time.sleep(1.5)
       run_program_or_exit = input(f"Would you like to use this program?(y/n):\n{blue}> {reset}")
